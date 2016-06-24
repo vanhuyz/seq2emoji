@@ -1,11 +1,13 @@
 import os
 import tweepy
 
-#override tweepy.StreamListener to add logic to on_status
 class MyStreamListener(tweepy.StreamListener):
   def on_status(self, status):
     print(status.text)
 
+  def on_error(self, status_code):
+    print('Got an error with status code: ' + str(status_code))
+    return True
 
 consumer_token = os.environ['CONSUMER_TOKEN']
 consumer_secret = os.environ['CONSUMER_SECRET']
@@ -20,5 +22,7 @@ api = tweepy.API(auth)
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
 
-s = "❤️"
-myStream.filter(languages = ["ja"], track=[s])
+with open('400_emoji_list.txt', 'r') as emoji_file:
+  emojis= emoji_file.readlines()
+
+myStream.filter(languages = ["ja"], track=emojis, async=True)
