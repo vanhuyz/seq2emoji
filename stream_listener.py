@@ -1,9 +1,13 @@
 import os
 import tweepy
 
+from tweet import Tweet
+
 class MyStreamListener(tweepy.StreamListener):
   def on_status(self, status):
     print(status.text)
+    tweet = Tweet(content = status.text)
+    tweet.save()
 
   def on_error(self, status_code):
     print('Got an error with status code: ' + str(status_code))
