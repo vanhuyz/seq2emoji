@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"seq2emoji.sequence"},{"v":1,"unique":true,"key":{"content":1},"name":"content_1","ns":"seq2emoji.sequence","sparse":false,"background":false}]}
